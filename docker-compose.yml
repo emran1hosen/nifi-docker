@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nifi1:
+    image: apache/nifi:1.18.0
+    hostname: nifi1
+    ports:
+      - "8080:8080"
+    volumes:
+      - nifi1_data:/opt/nifi/data
+    environment:
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+    command: ["nifi.sh", "run"]
+
+  nifi2:
+    image: apache/nifi:1.18.0
+    hostname: nifi2
+    ports:
+      - "8081:8080"
+    volumes:
+      - nifi2_data:/opt/nifi/data
+    environment:
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+    command: ["nifi.sh", "run"]
+
+  nifi3:
+    image: apache/nifi:1.18.0
+    hostname: nifi3
+    ports:
+      - "8082:8080"
+    volumes:
+      - nifi3_data:/opt/nifi/data
+    environment:
+      - NIFI_CLUSTER_IS_NODE=true
+      - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
+    command: ["nifi.sh", "run"]
+
+volumes:
+  nifi1_data:
+  nifi2_data:
+  nifi3_data:
